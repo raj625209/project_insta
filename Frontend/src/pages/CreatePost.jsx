@@ -2,6 +2,7 @@ import React from 'react'
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const CreatePost = () => {
 
@@ -13,7 +14,7 @@ const CreatePost = () => {
 
         const formData = new FormData(e.target)
 
-        axios.post("http://localhost:3000/create-post", formData)
+        axios.post(`${backendUrl}/create-post`, formData)
             .then((res) => {
 
                 navigate("/feed")

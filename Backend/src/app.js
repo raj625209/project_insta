@@ -5,8 +5,22 @@ const postModel =require("./models/post.model");
 const cors = require("cors")
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
+
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean); // remove empty entries
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  }),
+);
 
 const upload = multer({storage: multer.memoryStorage()})
 
